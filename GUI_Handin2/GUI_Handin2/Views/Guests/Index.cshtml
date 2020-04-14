@@ -1,0 +1,65 @@
+﻿@model IEnumerable<GUI_Handin2.Models.Guest>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.WontToEaten)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IsChild)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IsCheckIn)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Room)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Date)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.WontToEaten)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IsChild)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IsCheckIn)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Room.RoomId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Date.DateId)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.GuestId">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.GuestId">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.GuestId">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
