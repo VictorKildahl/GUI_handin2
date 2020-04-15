@@ -25,11 +25,14 @@
                 @Html.DisplayNameFor(model => model.IsCheckIn)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Room)
+                @Html.DisplayNameFor(model => model.Room.Number)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Date)
+                @Html.DisplayNameFor(model => model.Date.DateId)
             </th>
+            @*<th>
+                @Html.DisplayNameFor(model => model.Date.Month)
+            </th>*@
             <th></th>
         </tr>
     </thead>
@@ -49,11 +52,16 @@
                 @Html.DisplayFor(modelItem => item.IsCheckIn)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Room.RoomId)
+                @Html.DisplayFor(modelItem => item.Room.Number)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Date.DateId)
+                @Html.DisplayFor(modelItem => item.Date.Day) 
+                /
+                @Html.DisplayFor(modelItem => item.Date.Month)
             </td>
+            @*<td>
+                @Html.DisplayFor(modelItem => item.Date.Month)
+            </td>*@
             <td>
                 <a asp-action="Edit" asp-route-id="@item.GuestId">Edit</a> |
                 <a asp-action="Details" asp-route-id="@item.GuestId">Details</a> |

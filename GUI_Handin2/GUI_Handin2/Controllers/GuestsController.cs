@@ -50,7 +50,7 @@ namespace GUI_Handin2.Controllers
         public IActionResult Create()
         {
             ViewData["DateId"] = new SelectList(_context.Dates, "DateId", "DateId");
-            ViewData["RoomId"] = new SelectList(_context.Rooms, "RoomId", "RoomId");
+            ViewData["RoomNumber"] = new SelectList(_context.Rooms, "RoomId", "RoomId");
             return View();
         }
 
@@ -59,7 +59,7 @@ namespace GUI_Handin2.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("GuestId,Name,WontToEaten,IsChild,IsCheckIn,RoomId,DateId")] Guest guest)
+        public async Task<IActionResult> Create([Bind("GuestId,Name,WontToEaten,IsChild,IsCheckIn")] Guest guest) // ,RoomId,DateId
         {
             if (ModelState.IsValid)
             {
@@ -68,7 +68,7 @@ namespace GUI_Handin2.Controllers
                 return RedirectToAction(nameof(Index));
             }
             ViewData["DateId"] = new SelectList(_context.Dates, "DateId", "DateId", guest.DateId);
-            ViewData["RoomId"] = new SelectList(_context.Rooms, "RoomId", "RoomId", guest.RoomId);
+            ViewData["RoomNumber"] = new SelectList(_context.Rooms, "RoomId", "RoomId", guest.RoomId);
             return View(guest);
         }
 
