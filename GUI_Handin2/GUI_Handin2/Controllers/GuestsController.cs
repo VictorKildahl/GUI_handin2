@@ -39,6 +39,10 @@ namespace GUI_Handin2.Controllers
 
             guests = guests.Include(g => g.Room);
 
+            var children = _context.Guests.Where(g => g.IsChild == true).ToList();
+            int size = children.Count;
+            ViewBag["Size"] = size;
+
             //exercises = exercises.Include(e => e.Course).Include(e => e.Student).Include(e => e.Teacher);
 
             return View(await guests.ToListAsync());
