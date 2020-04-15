@@ -19,24 +19,6 @@ namespace GUI_Handin2.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("GUI_Handin2.Models.Date", b =>
-                {
-                    b.Property<int>("DateId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("Day")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Month")
-                        .HasColumnType("int");
-
-                    b.HasKey("DateId");
-
-                    b.ToTable("Dates");
-                });
-
             modelBuilder.Entity("GUI_Handin2.Models.Guest", b =>
                 {
                     b.Property<int>("GuestId")
@@ -44,8 +26,8 @@ namespace GUI_Handin2.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("DateId")
-                        .HasColumnType("int");
+                    b.Property<string>("GuestDate")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("IsCheckIn")
                         .HasColumnType("bit");
@@ -63,9 +45,6 @@ namespace GUI_Handin2.Migrations
                         .HasColumnType("bit");
 
                     b.HasKey("GuestId");
-
-                    b.HasIndex("DateId")
-                        .IsUnique();
 
                     b.HasIndex("RoomId");
 
@@ -289,16 +268,10 @@ namespace GUI_Handin2.Migrations
 
             modelBuilder.Entity("GUI_Handin2.Models.Guest", b =>
                 {
-                    b.HasOne("GUI_Handin2.Models.Date", "Date")
-                        .WithOne("Guest")
-                        .HasForeignKey("GUI_Handin2.Models.Guest", "DateId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("GUI_Handin2.Models.Room", "Room")
                         .WithMany("Guests")
                         .HasForeignKey("RoomId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
                 });
 
@@ -307,7 +280,7 @@ namespace GUI_Handin2.Migrations
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
                         .WithMany()
                         .HasForeignKey("RoleId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
                 });
 
@@ -316,7 +289,7 @@ namespace GUI_Handin2.Migrations
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
                 });
 
@@ -325,7 +298,7 @@ namespace GUI_Handin2.Migrations
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
                 });
 
@@ -334,13 +307,13 @@ namespace GUI_Handin2.Migrations
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
                         .WithMany()
                         .HasForeignKey("RoleId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
                 });
 
@@ -349,7 +322,7 @@ namespace GUI_Handin2.Migrations
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
                 });
 #pragma warning restore 612, 618

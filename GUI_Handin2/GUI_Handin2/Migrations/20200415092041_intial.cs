@@ -47,20 +47,6 @@ namespace GUI_Handin2.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Dates",
-                columns: table => new
-                {
-                    DateId = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Day = table.Column<int>(nullable: false),
-                    Month = table.Column<int>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Dates", x => x.DateId);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Rooms",
                 columns: table => new
                 {
@@ -91,7 +77,7 @@ namespace GUI_Handin2.Migrations
                         column: x => x.RoleId,
                         principalTable: "AspNetRoles",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -112,7 +98,7 @@ namespace GUI_Handin2.Migrations
                         column: x => x.UserId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -132,7 +118,7 @@ namespace GUI_Handin2.Migrations
                         column: x => x.UserId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -150,13 +136,13 @@ namespace GUI_Handin2.Migrations
                         column: x => x.RoleId,
                         principalTable: "AspNetRoles",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_AspNetUserRoles_AspNetUsers_UserId",
                         column: x => x.UserId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -176,7 +162,7 @@ namespace GUI_Handin2.Migrations
                         column: x => x.UserId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -189,24 +175,18 @@ namespace GUI_Handin2.Migrations
                     WontToEaten = table.Column<bool>(nullable: false),
                     IsChild = table.Column<bool>(nullable: false),
                     IsCheckIn = table.Column<bool>(nullable: false),
-                    RoomId = table.Column<int>(nullable: false),
-                    DateId = table.Column<int>(nullable: false)
+                    GuestDate = table.Column<string>(nullable: true),
+                    RoomId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Guests", x => x.GuestId);
                     table.ForeignKey(
-                        name: "FK_Guests_Dates_DateId",
-                        column: x => x.DateId,
-                        principalTable: "Dates",
-                        principalColumn: "DateId",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
                         name: "FK_Guests_Rooms_RoomId",
                         column: x => x.RoomId,
                         principalTable: "Rooms",
                         principalColumn: "RoomId",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateIndex(
@@ -249,12 +229,6 @@ namespace GUI_Handin2.Migrations
                 filter: "[NormalizedUserName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Guests_DateId",
-                table: "Guests",
-                column: "DateId",
-                unique: true);
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Guests_RoomId",
                 table: "Guests",
                 column: "RoomId");
@@ -285,9 +259,6 @@ namespace GUI_Handin2.Migrations
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");
-
-            migrationBuilder.DropTable(
-                name: "Dates");
 
             migrationBuilder.DropTable(
                 name: "Rooms");

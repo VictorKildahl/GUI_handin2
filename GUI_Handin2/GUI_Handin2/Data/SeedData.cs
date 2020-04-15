@@ -34,26 +34,25 @@ namespace GUI_Handin2.Data
                 };
                 context.Rooms.Add(room2);
 
-
-
-
-
-
-
-
-                Date date1 = new Date()
+                Room room3 = new Room()
                 {
-                    Day = 1,
-                    Month = 1
+                    Number = 3
                 };
-                context.Dates.Add(date1);
+                context.Rooms.Add(room3);
 
-                Date date2 = new Date()
+                Room room4 = new Room()
                 {
-                    Day = 2,
-                    Month = 2
+                    Number = 4
                 };
-                context.Dates.Add(date2);
+                context.Rooms.Add(room4);
+
+                Room room5 = new Room()
+                {
+                    Number = 5
+                };
+                context.Rooms.Add(room5);
+
+
 
 
 
@@ -63,35 +62,51 @@ namespace GUI_Handin2.Data
                     Name = "Victor Kildahl",
                     WontToEaten = true,
                     IsChild = false,
-                    Room = room1,
-                    Date = date1
+                    GuestDate = "01/01",
+                    Room = room1
                 };
                 context.Guests.Add(guest1);
 
 
-                //Guest guest2 = new Guest()
-                //{
-                //    Name = "Lasse Mosel"
-                //};
-                //context.Guests.Add(guest2);
+                Guest guest2 = new Guest()
+                {
+                    Name = "Lasse Mosel",
+                    WontToEaten = true,
+                    IsChild = false,
+                    GuestDate = "21/03",
+                    Room = room1
+                };
+                context.Guests.Add(guest2);
 
-                //Guest guest3 = new Guest()
-                //{
-                //    Name = "Brian Stjernholm"
-                //};
-                //context.Guests.Add(guest3);
+                Guest guest3 = new Guest()
+                {
+                    Name = "Brian Stjernholm",
+                    WontToEaten = true,
+                    IsChild = true,
+                    GuestDate = "03/12",
+                    Room = room2
+                };
+                context.Guests.Add(guest3);
 
-                //Guest guest4 = new Guest()
-                //{
-                //    Name = "Marc Warming"
-                //};
-                //context.Guests.Add(guest4);
+                Guest guest4 = new Guest()
+                {
+                    Name = "Marc Warming",
+                    WontToEaten = false,
+                    IsChild = true,
+                    GuestDate = "11/16",
+                    Room = room2
+                };
+                context.Guests.Add(guest4);
 
-                //Guest guest5 = new Guest()
-                //{
-                //    Name = "David Tegam"
-                //};
-                //context.Guests.Add(guest5);
+                Guest guest5 = new Guest()
+                {
+                    Name = "David Tegam",
+                    WontToEaten = true,
+                    IsChild = false,
+                    GuestDate = "07/11",
+                    Room = room3
+                };
+                context.Guests.Add(guest5);
 
 
 

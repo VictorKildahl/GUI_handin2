@@ -20,10 +20,28 @@ namespace GUI_Handin2.Controllers
         }
 
         // GET: Guests
-        public async Task<IActionResult> Index()
+        //public async Task<IActionResult> Index()
+        //{
+        //    var applicationDbContext = _context.Guests.Include(g => g.Room);
+        //    return View(await applicationDbContext.ToListAsync());
+        //}
+
+        public async Task<IActionResult> Index(string searchString) //har ændret navne på variablerne så de stemmer lidt bedre overens med de anvendte klasser
         {
-            var applicationDbContext = _context.Guests.Include(g => g.Date).Include(g => g.Room);
-            return View(await applicationDbContext.ToListAsync());
+
+            var guests = from g in _context.Guests select g;
+
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                guests = guests.Where(g => g.GuestDate.Contains(searchString)).Include(g => g.Room);
+                guests = guests.Where(g => g.WontToEaten == true);
+            }
+
+            guests = guests.Include(g => g.Room);
+
+            //exercises = exercises.Include(e => e.Course).Include(e => e.Student).Include(e => e.Teacher);
+
+            return View(await guests.ToListAsync());
         }
 
         // GET: Guests/Details/5
@@ -35,7 +53,6 @@ namespace GUI_Handin2.Controllers
             }
 
             var guest = await _context.Guests
-                .Include(g => g.Date)
                 .Include(g => g.Room)
                 .FirstOrDefaultAsync(m => m.GuestId == id);
             if (guest == null)
@@ -49,8 +66,7 @@ namespace GUI_Handin2.Controllers
         // GET: Guests/Create
         public IActionResult Create()
         {
-            ViewData["DateId"] = new SelectList(_context.Dates, "DateId", "DateId");
-            ViewData["RoomNumber"] = new SelectList(_context.Rooms, "RoomId", "RoomId");
+            ViewData["RoomId"] = new SelectList(_context.Rooms, "RoomId", "RoomId");
             return View();
         }
 
@@ -59,7 +75,7 @@ namespace GUI_Handin2.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("GuestId,Name,WontToEaten,IsChild,IsCheckIn")] Guest guest) // ,RoomId,DateId
+        public async Task<IActionResult> Create([Bind("GuestId,Name,WontToEaten,IsChild,IsCheckIn,GuestDate,RoomId")] Guest guest)
         {
             if (ModelState.IsValid)
             {
@@ -67,8 +83,7 @@ namespace GUI_Handin2.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["DateId"] = new SelectList(_context.Dates, "DateId", "DateId", guest.DateId);
-            ViewData["RoomNumber"] = new SelectList(_context.Rooms, "RoomId", "RoomId", guest.RoomId);
+            ViewData["RoomId"] = new SelectList(_context.Rooms, "RoomId", "RoomId", guest.RoomId);
             return View(guest);
         }
 
@@ -85,7 +100,6 @@ namespace GUI_Handin2.Controllers
             {
                 return NotFound();
             }
-            ViewData["DateId"] = new SelectList(_context.Dates, "DateId", "DateId", guest.DateId);
             ViewData["RoomId"] = new SelectList(_context.Rooms, "RoomId", "RoomId", guest.RoomId);
             return View(guest);
         }
@@ -95,7 +109,7 @@ namespace GUI_Handin2.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("GuestId,Name,WontToEaten,IsChild,IsCheckIn,RoomId,DateId")] Guest guest)
+        public async Task<IActionResult> Edit(int id, [Bind("GuestId,Name,WontToEaten,IsChild,IsCheckIn,GuestDate,RoomId")] Guest guest)
         {
             if (id != guest.GuestId)
             {
@@ -122,7 +136,6 @@ namespace GUI_Handin2.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["DateId"] = new SelectList(_context.Dates, "DateId", "DateId", guest.DateId);
             ViewData["RoomId"] = new SelectList(_context.Rooms, "RoomId", "RoomId", guest.RoomId);
             return View(guest);
         }
@@ -136,7 +149,6 @@ namespace GUI_Handin2.Controllers
             }
 
             var guest = await _context.Guests
-                .Include(g => g.Date)
                 .Include(g => g.Room)
                 .FirstOrDefaultAsync(m => m.GuestId == id);
             if (guest == null)

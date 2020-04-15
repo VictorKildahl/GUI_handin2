@@ -12,7 +12,7 @@ namespace GUI_Handin2.Models
 
         public string Name { get; set; }
 
-        [Display(Name = "Do you wont to eat?")]
+        [Display(Name = "Do you want to eat?")]
         public bool WontToEaten { get; set; }
 
         [Display(Name = "Child?")]
@@ -21,12 +21,12 @@ namespace GUI_Handin2.Models
         [Display(Name = "Checked in?")]
         public bool IsCheckIn { get; set; }
 
+        [Display(Name = "Date dd/mm")]
+        public string GuestDate { get; set; }
+
         public int RoomId { get; set; }
 
         public Room Room { get; set; }
 
-        public int DateId { get; set; }
-
-        public Date Date { get; set; }
     }
 }

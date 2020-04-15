@@ -9,6 +9,15 @@
 <p>
     <a asp-action="Create">Create New</a>
 </p>
+
+
+<form asp-controller="Guests" asp-action="Index">
+    <p>
+        Search for a date (dd/mm): <input type="text" name="SearchString">
+        <input type="submit" value="Filter" />
+    </p>
+</form>
+
 <table class="table">
     <thead>
         <tr>
@@ -25,14 +34,11 @@
                 @Html.DisplayNameFor(model => model.IsCheckIn)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Room.Number)
+                @Html.DisplayNameFor(model => model.GuestDate)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Date.DateId)
+                @Html.DisplayNameFor(model => model.Room)
             </th>
-            @*<th>
-                @Html.DisplayNameFor(model => model.Date.Month)
-            </th>*@
             <th></th>
         </tr>
     </thead>
@@ -52,16 +58,11 @@
                 @Html.DisplayFor(modelItem => item.IsCheckIn)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Room.Number)
+                @Html.DisplayFor(modelItem => item.GuestDate)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Date.Day) 
-                /
-                @Html.DisplayFor(modelItem => item.Date.Month)
+                @Html.DisplayFor(modelItem => item.Room.RoomId)
             </td>
-            @*<td>
-                @Html.DisplayFor(modelItem => item.Date.Month)
-            </td>*@
             <td>
                 <a asp-action="Edit" asp-route-id="@item.GuestId">Edit</a> |
                 <a asp-action="Details" asp-route-id="@item.GuestId">Details</a> |
