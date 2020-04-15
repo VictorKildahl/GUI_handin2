@@ -12,6 +12,7 @@ namespace GUI_Handin2.Models
 
         [Display(Name = "Room number")]
         public int Number { get; set; }
+
         public virtual List<Guest> Guests { get; set; }
     }
 }
