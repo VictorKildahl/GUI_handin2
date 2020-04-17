@@ -1,0 +1,25 @@
+﻿@model ICollection<int>
+@{
+    ViewData["Title"] = "Expected number of guests " + DateTime.Now.ToString("dd.MM.yyy");
+}
+
+    <input type="button" value="Reload Page" onClick="document.location.reload(true)">
+
+<h1>@ViewData["Title"].</h1>
+<table class="table">
+
+    <tbody>
+        <tr>
+            <th>Expected number of guests</th>
+            <th>Adults checked in</th>
+            <th>Kids checked in</th>
+            <th>Not checked in</th>
+        </tr>
+        <tr>
+            <td>@Html.ViewData.Model.ElementAt(0)</td>
+            <td>@Html.ViewData.Model.ElementAt(1)</td>
+            <td>@Html.ViewData.Model.ElementAt(2)</td>
+            <td>@Html.ViewData.Model.ElementAt(3)</td>
+        </tr>
+    </tbody>
+</table>
