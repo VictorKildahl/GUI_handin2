@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Query;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -29,10 +30,16 @@ namespace GUI2.Controllers
         public async Task<IActionResult> KitchenInfo()
         {
             var tempinf = await _context.CheckIns.Where(x => x.Date.Date == DateTime.Today).ToListAsync();
-            var excheckins = await _context.Breakfasts.FirstOrDefaultAsync(m => m.Date == DateTime.Today);
+            var tempexcheckins = await _context.Breakfasts.Where(m => m.Date.Date == DateTime.Today).ToListAsync();
 
+            int excheckins = 0;
             int adultCheckIns = 0;
             int kidCheckIns = 0;
+
+            foreach (var item in tempexcheckins)
+            {
+                excheckins += item.NumberOfOrders;
+            }
 
             foreach (var item in tempinf)
             {
@@ -40,7 +47,7 @@ namespace GUI2.Controllers
                 kidCheckIns += item.NumberOfKids;
             }
 
-            List<int> ting = new List<int> { excheckins.NumberOfOrders, adultCheckIns, kidCheckIns, (excheckins.NumberOfOrders - (adultCheckIns + kidCheckIns)) };
+            List<int> ting = new List<int> { excheckins, adultCheckIns, kidCheckIns, (excheckins - (adultCheckIns + kidCheckIns)) };
 
             return View(ting);
         }
